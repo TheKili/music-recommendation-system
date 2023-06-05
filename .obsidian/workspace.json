@@ -11,9 +11,11 @@
             "id": "483f5d11acdd3874",
             "type": "leaf",
             "state": {
-              "type": "kanban",
+              "type": "markdown",
               "state": {
-                "file": "project-management/feature-implementation.md"
+                "file": "project-management/paul/paul.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "project-management/feature-implementation.md",
+                "file": "project-management/paul/paul.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "project-management/feature-implementation.md",
+                "file": "project-management/paul/paul.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "project-management/feature-implementation.md"
+                "file": "project-management/paul/paul.md"
               }
             }
           }
@@ -146,21 +148,21 @@
   },
   "active": "483f5d11acdd3874",
   "lastOpenFiles": [
+    "project-management/feature-implementation.md",
+    "project-management/milestones.md",
+    "project-management/research-progress.md",
+    "project-management/maurice/maurice.md",
     "project-management/sebastian/sebastian.md",
     "project-management/sebastian",
     "project-management/paul/paul.md",
     "project-management/paul",
-    "project-management/maurice/maurice.md",
     "project-management/maurice",
     "project-management/kilian/kilian.md",
     "project-management/kilian",
-    "project-management/feature-implementation.md",
     "wiki/data_reduction/list.md",
     "readme.md",
     "project-management/sebastian.md",
     "raw_data/readme.md.md",
-    "project-management/research-progress.md",
-    "project-management/milestones.md",
     "Makefile",
     "tests/integrated/test_model_performance.py",
     "tests/integrated/test_main.py",

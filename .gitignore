@@ -2,6 +2,8 @@ raw_data/
 data/
 .env
 .obsidian/workspace.json
+.obsidian/
 .obsidian/hotkeys.json
 .obsidian/appearance.json
 .obsidian/plugins/obsidian-git/data.json
+.DS_Store
