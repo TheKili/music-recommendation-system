@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "project-management/sebastian/sebastian.md",
+                "file": "project-management/kilian/kilian.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "project-management/sebastian/sebastian.md",
+                "file": "project-management/kilian/kilian.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "project-management/sebastian/sebastian.md",
+                "file": "project-management/kilian/kilian.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "project-management/sebastian/sebastian.md"
+                "file": "project-management/kilian/kilian.md"
               }
             }
           }
@@ -161,11 +161,11 @@
   },
   "active": "483f5d11acdd3874",
   "lastOpenFiles": [
+    "project-management/sebastian/sebastian.md",
     "project-management/feature-implementation.md",
     "project-management/paul/paul.md",
     "project-management/kilian/kilian.md",
     "project-management/maurice/maurice.md",
-    "project-management/sebastian/sebastian.md",
     "readme.md",
     "project-management/kilian",
     "project-management/paul",
