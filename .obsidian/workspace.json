@@ -146,6 +146,8 @@
   },
   "active": "483f5d11acdd3874",
   "lastOpenFiles": [
+    "project-management/kilian/tedt.md",
+    "project-management/feature-implementation.md",
     "project-management/research-progress.md",
     "test.md",
     "features/model-based content similarity.md",
@@ -153,7 +155,6 @@
     "project-management/features/front-end visualization scatterplot.md",
     "project-management/features/model-based collaboration similarity.md",
     "project-management/features/memory-based content similarity.md",
-    "project-management/feature-implementation.md",
     "project-management/features/co-occurence collaboration.md",
     "project-management/features/model-based content similarity.md",
     "features",
@@ -180,7 +181,6 @@
     "feature-implementation.md",
     "milestones.md",
     "wiki/data_reduction/singular-value-decomposition.md",
-    "wiki/data_reduction/principle-component-analysis.md",
-    "wiki/data_reduction/multidimensional-scaling.md"
+    "wiki/data_reduction/principle-component-analysis.md"
   ]
 }
