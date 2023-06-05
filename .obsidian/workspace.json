@@ -11,9 +11,11 @@
             "id": "483f5d11acdd3874",
             "type": "leaf",
             "state": {
-              "type": "kanban",
+              "type": "markdown",
               "state": {
-                "file": "project-management/feature-implementation.md"
+                "file": "wiki/model-based-recommendation.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "project-management/feature-implementation.md",
+                "file": "wiki/model-based-recommendation.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "project-management/feature-implementation.md",
+                "file": "wiki/model-based-recommendation.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "project-management/feature-implementation.md"
+                "file": "wiki/model-based-recommendation.md"
               }
             }
           }
@@ -146,29 +148,31 @@
   },
   "active": "483f5d11acdd3874",
   "lastOpenFiles": [
-    "project-management/sebastian/sebastian.md",
-    "project-management/sebastian",
-    "project-management/paul/paul.md",
-    "project-management/paul",
-    "project-management/maurice/maurice.md",
-    "project-management/maurice",
-    "project-management/kilian/kilian.md",
-    "project-management/kilian",
+    "raw_data/data/mpd.slice.302000-302999.json",
+    "raw_data/data/mpd.slice.404000-404999.json",
+    "raw_data/data/mpd.slice.952000-952999.json",
+    "raw_data/data/mpd.slice.635000-635999.json",
+    "raw_data/data/mpd.slice.133000-133999.json",
+    "raw_data/data/mpd.slice.269000-269999.json",
+    "raw_data/data/mpd.slice.781000-781999.json",
+    "raw_data/data/mpd.slice.839000-839999.json",
+    "raw_data/data/mpd.slice.734000-734999.json",
+    "raw_data/data/mpd.slice.368000-368999.json",
+    "raw_data/data/mpd.slice.680000-680999.json",
     "project-management/feature-implementation.md",
+    "project-management/milestones.md",
+    "project-management/research-progress.md",
+    "wiki/model-based-recommendation.md",
+    "Screenshot 2023-06-05 at 16.26.26.png",
+    "project-management/paul/paul.md",
+    "project-management/maurice/maurice.md",
+    "project-management/kilian/kilian.md",
+    "project-management/sebastian/sebastian.md",
     "wiki/data_reduction/list.md",
     "readme.md",
     "project-management/sebastian.md",
     "raw_data/readme.md.md",
-    "project-management/research-progress.md",
-    "project-management/milestones.md",
-    "Makefile",
-    "tests/integrated/test_model_performance.py",
-    "tests/integrated/test_main.py",
-    "tests/integrated",
-    "tests/__init__.py",
-    "tests/unittests/test_model.py",
     "feature-implementation.md",
-    "wiki/model-based-recommendation.md",
     "wiki/memory-based-recommendation.md",
     "milestones.md",
     "wiki/data_reduction/singular-value-decomposition.md",
