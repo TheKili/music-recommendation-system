@@ -2,7 +2,7 @@
 ## Notizen an sich selbst
 
 
-eine weitere Notiz für mich!
+
 
 ## ToDos (offen)
 
