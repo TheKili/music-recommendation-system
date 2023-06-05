@@ -1,7 +1,5 @@
 raw_data/
 data/
 .env
-.obsidian/
-.obsidian
-.obsidian/workspace.json
+.obsidian/**
 .DS_Store
