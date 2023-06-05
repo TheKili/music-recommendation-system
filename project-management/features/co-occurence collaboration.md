@@ -3,3 +3,4 @@
 - [ ] find all pairwise combinations  
 - [ ] create deterministic algorithm to increase only one counter of the pairwise counters (e.g. sort trackids by alphabet and only add counter to first id)  
 - [ ] create worker to 1) load several files at the same time and 2) parallelise the function
+- [ ] use same data structure as for [[memory-based content similarity]] to store the data
