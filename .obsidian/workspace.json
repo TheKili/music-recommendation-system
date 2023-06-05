@@ -13,13 +13,62 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "project-management/maurice/maurice.md",
+                "file": "project-management/milestones.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "da6b05a346c92d65",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "project-management/features/front-end visualization scatterplot.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "56b22bc46dd1ee45",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "project-management/features/model-based collaboration similarity.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "89175df34315722c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "project-management/features/memory-based content similarity.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "f99b9e5e4fd6029a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "project-management/features/memory-based content similarity.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -69,7 +118,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 203.5
+    "width": 308.5
   },
   "right": {
     "id": "5bac113d3df12da3",
@@ -85,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "project-management/maurice/maurice.md",
+                "file": "project-management/features/memory-based content similarity.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "project-management/maurice/maurice.md",
+                "file": "project-management/features/memory-based content similarity.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "project-management/maurice/maurice.md"
+                "file": "project-management/features/memory-based content similarity.md"
               }
             }
           }
@@ -146,32 +195,39 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "483f5d11acdd3874",
+  "active": "f99b9e5e4fd6029a",
   "lastOpenFiles": [
-    "project-management/kilian/kilian.md",
-    "project-management/maurice/maurice.md",
-    "wiki/model-based-recommendation.md",
-    "project-management/paul/paul.md",
     "project-management/feature-implementation.md",
+    "project-management/features/co-occurence collaboration.md",
+    "project-management/features/memory-based content similarity.md",
+    "project-management/features/model-based collaboration similarity.md",
+    "project-management/features/front-end visualization scatterplot.md",
     "project-management/milestones.md",
+    "project-management/features/model-based content similarity.md",
+    "features/model-based content similarity.md",
+    "features",
     "project-management/research-progress.md",
+    "wiki/distance_measures/distance measures list.md",
+    "project-management/features",
+    "project-management/features",
+    "wiki/data_reduction/list.md",
+    "wiki/memory-based-recommendation.md",
+    "wiki/model-based-recommendation.md",
+    "project-management/kilian/kilian.md",
+    "project-management/paul/paul.md",
     "project-management/sebastian/sebastian.md",
+    "project-management/maurice/maurice.md",
     "project-management/sebastian",
     "project-management/paul",
     "project-management/maurice",
     "project-management/kilian",
-    "wiki/data_reduction/list.md",
     "readme.md",
     "project-management/sebastian.md",
     "raw_data/readme.md.md",
     "Makefile",
     "tests/integrated/test_model_performance.py",
     "tests/integrated/test_main.py",
-    "tests/integrated",
-    "tests/__init__.py",
-    "tests/unittests/test_model.py",
     "feature-implementation.md",
-    "wiki/memory-based-recommendation.md",
     "milestones.md",
     "wiki/data_reduction/singular-value-decomposition.md",
     "wiki/data_reduction/principle-component-analysis.md",
