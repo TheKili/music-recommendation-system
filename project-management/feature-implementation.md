@@ -6,11 +6,11 @@ kanban-plugin: basic
 
 ## Pending
 
-- [ ] Song Co-Occurence Matrix
 
 
 ## In Progress
 
+- [ ] Song Co-Occurence Matrix
 
 
 ## Under Review
