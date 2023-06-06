@@ -1,13 +1,4 @@
 Collaborative Dimension:
-<<<<<<< HEAD
-
-Possibilities
-1. Sklearn
-2. Surprise Library (Python)
-
-3. Surprise Library:
-- Singular Value Decomposition using SVD or SVDpp (latter separately keeps track of whether the user rated the item or not)
-=======
 Using User-Item (Song) Matrix of Occurence
 -> Decompose into underlying Latent Factors Matrix by reducing dimensionality into more useful lower space
 -> minimizing the loss between the reconstructed matrix and the original matrix
@@ -33,7 +24,6 @@ Performance:
 - 
 1. Funk MF with Surprise Library:
 - Similar to Singular Value Decomposition using SVD or SVDpp (latter separately keeps track of whether the user rated the item or not)
->>>>>>> 6706132f34b92d1a15a957d1e6807b051b0d8bb9
 ![[Screenshot 2023-06-05 at 16.26.26.png]]
 - _pᵤ_ and _qᵢ_ are vectors, and their length is a hyperparameter of the model, _n_. They are the actual [matrix-factorisation](https://en.wikipedia.org/wiki/Matrix_factorization_(recommender_systems)) part of the model
 - Next, we need the preprocessed dataset to train our model, preproc is similar, however slight difference since here Surprise is used 
@@ -53,11 +43,3 @@ Conclusion:
 - Drawback: uses another Library (not Scikit)
 - Problem: unsure about the output of model and if that is sufficient for our goal
 
-<<<<<<< HEAD
-To dig in deeper:
-Which one to pick?
-- user-item similarity
-- item-user similarity
-- item-item similarity (content?)
-=======
->>>>>>> 6706132f34b92d1a15a957d1e6807b051b0d8bb9
