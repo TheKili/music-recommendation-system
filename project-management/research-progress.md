@@ -4,22 +4,19 @@ kanban-plugin: basic
 
 ---
 
-## Pending
+## Open
 
-- [ ] model-based approaches for collaboration dimension [[paul]], [[sebastian]] [due:: 2023-06-07]
-- [ ] (dis)simillarity measures for content dimension [[sebastian]] [due:: 2023-06-07]
-
-
-## In progress
-
-- [ ] model-based approches for content dimension [[paul]]
+- [ ] [[model-based-recommendation]]
+- [ ] [[memory-based-recommendation]]
+- [ ] [[wiki/data_reduction/list|data reduction techniques]]
+- [ ] [[wiki/viz/list|visualization ideas]]
 
 
-## under review
+## In Progress
 
 
 
-## done
+## Done
 
 
 

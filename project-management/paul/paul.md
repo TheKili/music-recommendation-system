@@ -1,9 +1,7 @@
 
 ## Notizen an sich selbst
 
-Modellierungsansatz für content und collaborative Ansatz
--  [ ] Research Model, content dimension
--  [ ] Research Model, collaborative dimension
+
 
 
 ## ToDos (offen)
