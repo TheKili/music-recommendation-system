@@ -1,5 +1,5 @@
-- [ ] todo   [[kilian]]
-- [ ] 
+## Notizen an sich selbst
+
 
 
 ## ToDos (offen)

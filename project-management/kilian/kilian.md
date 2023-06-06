@@ -2,8 +2,6 @@
 ## Notizen an sich selbst
 
 
-
-
 ## ToDos (offen)
 
 ```dataviewjs
