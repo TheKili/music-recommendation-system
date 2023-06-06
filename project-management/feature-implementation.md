@@ -11,6 +11,8 @@ kanban-plugin: basic
 
 ## In Progress
 
+- [ ] hallo
+- [ ] asdfasf
 
 
 ## Under Review
