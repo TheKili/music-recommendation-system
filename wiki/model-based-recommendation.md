@@ -6,7 +6,7 @@ Using User-Item (Song) Matrix of Occurence
 
 Possibilities (https://towardsdatascience.com/a-complete-guide-to-recommender-system-tutorial-with-sklearn-surprise-keras-recommender-5e52e8ceace1)
 1. Truncated Singular Value Decomposition with Sklearn
-2. Funk Matrix Factorization with Surprise 
+2. Funk Matrix Factorization with Surprise
 3. Generalized Matrix Factorization with Keras
 
 1. TruncatedSVD, Sklearn:
@@ -21,12 +21,12 @@ Hyperparameters:
 - ...
 Performance:
 - recommendation would be based on some latent factors that we cannot explain directly compared to the explicit or implicit rating from the memory-based approach
-- 
+-
 1. Funk MF with Surprise Library:
 - Similar to Singular Value Decomposition using SVD or SVDpp (latter separately keeps track of whether the user rated the item or not)
 ![[Screenshot 2023-06-05 at 16.26.26.png]]
 - _pᵤ_ and _qᵢ_ are vectors, and their length is a hyperparameter of the model, _n_. They are the actual [matrix-factorisation](https://en.wikipedia.org/wiki/Matrix_factorization_(recommender_systems)) part of the model
-- Next, we need the preprocessed dataset to train our model, preproc is similar, however slight difference since here Surprise is used 
+- Next, we need the preprocessed dataset to train our model, preproc is similar, however slight difference since here Surprise is used
 - Then we can fit, test and predict
 Performance:
 - Using the `pu`, `qi`, `bu` and `bi` methods of an `SVD` object, you can get the corresponding values from the math formula
@@ -42,4 +42,3 @@ Conclusion:
 - Straightforward approach to do model based approach for collaborative dimension
 - Drawback: uses another Library (not Scikit)
 - Problem: unsure about the output of model and if that is sufficient for our goal
-
