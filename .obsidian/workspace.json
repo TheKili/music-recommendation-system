@@ -18,8 +18,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "29324a55d7d0f560",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "Screenshot 2023-06-05 at 16.26.26.png"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +96,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "wiki/model-based-recommendation.md",
+                "file": "Screenshot 2023-06-05 at 16.26.26.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +113,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "wiki/model-based-recommendation.md",
+                "file": "Screenshot 2023-06-05 at 16.26.26.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +136,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "wiki/model-based-recommendation.md"
+                "file": "Screenshot 2023-06-05 at 16.26.26.png"
               }
             }
           }
@@ -146,8 +157,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "483f5d11acdd3874",
+  "active": "29324a55d7d0f560",
   "lastOpenFiles": [
+    "Screenshot 2023-06-05 at 16.26.26 1.png",
+    "Screenshot 2023-06-05 at 16.26.26.png",
+    "wiki/model-based-recommendation.md",
+    "conflict-files-obsidian-git.md",
     "raw_data/data/mpd.slice.302000-302999.json",
     "raw_data/data/mpd.slice.404000-404999.json",
     "raw_data/data/mpd.slice.952000-952999.json",
@@ -158,12 +173,9 @@
     "raw_data/data/mpd.slice.839000-839999.json",
     "raw_data/data/mpd.slice.734000-734999.json",
     "raw_data/data/mpd.slice.368000-368999.json",
-    "raw_data/data/mpd.slice.680000-680999.json",
     "project-management/feature-implementation.md",
     "project-management/milestones.md",
     "project-management/research-progress.md",
-    "wiki/model-based-recommendation.md",
-    "Screenshot 2023-06-05 at 16.26.26.png",
     "project-management/paul/paul.md",
     "project-management/maurice/maurice.md",
     "project-management/kilian/kilian.md",

@@ -1,5 +1,6 @@
-- [ ] todo   [[kilian]]
-- [ ] xxx
+- [x] todo   [[kilian]]
+- [x] xxx
+- [ ] hallo [[kilian]]
 
 
 ## ToDos (offen)

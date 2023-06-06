@@ -1,9 +1,5 @@
 [
-  "obsidian-kanban",
-<<<<<<< HEAD
-  "obsidian-git"
-=======
   "obsidian-git",
-  "dataview"
->>>>>>> main
+  "dataview",
+  "obsidian-kanban"
 ]
