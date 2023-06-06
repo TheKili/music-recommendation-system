@@ -1,6 +1,6 @@
 raw_data/
-data/
 .env
 .obsidian/workspace.json
 .obsidian/hotkeys.json
 .obsidian/appearance.json
+notebooks/
