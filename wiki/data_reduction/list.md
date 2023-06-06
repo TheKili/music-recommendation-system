@@ -11,6 +11,3 @@ tag:
 
 
 ## Singular Value Decomposition
-## Multidimensional Scaling
-
-
