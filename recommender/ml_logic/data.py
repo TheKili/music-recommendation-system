@@ -19,9 +19,10 @@ def clean_content_data(df: pd.DataFrame) -> pd.DataFrame:
 
 def create_k_recommendations (df: pd.DataFrame, distance: str, weights: list, k : int  ) -> pd.DataFrame:
     """
-    Calculates distance matrix for given dataframe (content/collaboration)
+    Calculates distance matrix for given dataframe
     (returns distnance matrix or )
     (returns a dataframe with k recommendations for each song)
+    (or saves them on a big query cloud)
     """
 
 
