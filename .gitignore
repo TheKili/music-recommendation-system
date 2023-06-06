@@ -2,4 +2,5 @@ raw_data/
 data/
 .env
 .obsidian/**
+.obsidian/
 .DS_Store
