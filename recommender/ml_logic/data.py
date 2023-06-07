@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import json
 import multiprocessing
+import dask.array as da
 
 from google.cloud import bigquery
 from colorama import Fore, Style
@@ -16,7 +17,7 @@ def get_content_data() -> pd.DataFrame:
     """
 
 
-    return content_df
+    return
 
 
 def clean_content_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -97,7 +98,7 @@ def clean_colab_data(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-def get_track_matrix(df: pd.DataFrame, normalize=True) -> np.array:
+def get_track_matrix(df: pd.DataFrame, normalize=True, chunk_size_mb = 100) -> np.array:
     """
     Creates a track matrix from a dataframe
     (len(playlist_df) = Amount of unique Tracks)**2
@@ -125,7 +126,22 @@ def get_track_matrix(df: pd.DataFrame, normalize=True) -> np.array:
     # (len(playlist_df) = Amount of unique Tracks)**2
     # Index: (playlist_df['track_id'], playlist_df['track_id'])
     # with track_matrix[i][j] = amount of playlists including track i and track j
-    track_matrix = track_to_playlist_matrix @ track_to_playlist_matrix.T
+
+    # Use Dask to minimize memory usage
+    chunk_size_bytes = chunk_size_mb * 2**20  # 100 MB chunks
+
+    #Convert track_to_playlist_matrix to dask array and transpose
+    track_to_playlist_da = da.from_array(track_to_playlist_matrix, chunks=chunk_size_bytes)
+    x_transposed = track_to_playlist_da.transpose()
+    track_to_playlist_da_T = x_transposed.compute()
+
+    #Compute
+    result = da.dot(track_to_playlist_da, track_to_playlist_da_T)
+    result = result.compute() # <-- This is where the magic happens
+
+    return result
+
+
 
     if normalize == True:
         #normalize track_matrix
