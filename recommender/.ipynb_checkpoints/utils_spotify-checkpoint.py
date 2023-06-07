@@ -3,7 +3,8 @@ from spotipy.oauth2 import SpotifyOAuth
 import pandas as pd
 import os
 
-
+scope = 'playlist-modify-public'
+username = 'buggy0811'    
 token = SpotifyOAuth(scope = os.environ['SPOTIFY_SCOPE'],
                     username = os.environ['SPOTIFY_USERNAME'],
                     client_id = os.environ['SPOTIFY_CLIENT_ID'],

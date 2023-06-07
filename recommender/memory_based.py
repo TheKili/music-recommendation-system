@@ -38,7 +38,7 @@ def get_recommendations(song_input: pd.DataFrame,
           you always expect the song itself to be most similar
     '''
                         
-        audio_feats = [
+    audio_feats = [
              'popularity',
              'duration_ms',
              'explicit',
@@ -54,29 +54,29 @@ def get_recommendations(song_input: pd.DataFrame,
              'valence',
              'tempo'
         ]  
-        df_audio = df.loc[:, audio_feats]
-        song_input = song_input.loc[:, audio_feats]
-        scaler = MinMaxScaler()
-        df_audio_scaled = pd.DataFrame(scaler.fit_transform(df_audio), columns = df_audio.columns)
-        song_input_scaled = pd.DataFrame(scaler.transform(song_input), columns = df_audio.columns)
-        df_audio_scaled = df_audio_scaled.set_index(df['track_id'])
-        
-        if metric == 'cosine':
-            similarities = cosine_similarity(X = song_input_scaled, Y = df_audio_scaled).T[:,0]
-        elif metric == 'polynomial': #check scoring method: do high numbers indicate similarity or low?
-            similarities = polynomial_kernel(
-                X = song_input_scaled, Y = df_audio_scaled, degree=pol_degree).T[:,0]
-            #similarities = 1/similarities
-        elif metric == 'sigmoid': #check scoring method: do high numbers indicate similarity or low?
-            similarities = sigmoid_kernel(
-                X = song_input_scaled, Y = df_audio_scaled).T[:,0]
-        elif metric == 'rbf': #high numbers indicate high similarity
-            similarities = rbf_kernel(
-                X = song_input_scaled, Y = df_audio_scaled).T[:,0]
-      
-        df_sim = pd.DataFrame({'track_id' : df['track_id'],
-                               'similarity' : similarities,
-                               'track_name' : df['track_name'],
-                               'artist' : df['artists']})
-        df_sim = df_sim.drop_duplicates(subset = ['artist', 'track_name'], keep = 'first')
-        return df_sim.sort_values('similarity', ascending = False)[0:n_recommendations+1]
+    df_audio = df.loc[:, audio_feats]
+    song_input = song_input.loc[:, audio_feats]
+    scaler = MinMaxScaler()
+    df_audio_scaled = pd.DataFrame(scaler.fit_transform(df_audio), columns = df_audio.columns)
+    song_input_scaled = pd.DataFrame(scaler.transform(song_input), columns = df_audio.columns)
+    df_audio_scaled = df_audio_scaled.set_index(df['track_id'])
+    
+    if metric == 'cosine':
+        similarities = cosine_similarity(X = song_input_scaled, Y = df_audio_scaled).T[:,0]
+    elif metric == 'polynomial': #check scoring method: do high numbers indicate similarity or low?
+        similarities = polynomial_kernel(
+            X = song_input_scaled, Y = df_audio_scaled, degree=pol_degree).T[:,0]
+        #similarities = 1/similarities
+    elif metric == 'sigmoid': #check scoring method: do high numbers indicate similarity or low?
+        similarities = sigmoid_kernel(
+            X = song_input_scaled, Y = df_audio_scaled).T[:,0]
+    elif metric == 'rbf': #high numbers indicate high similarity
+        similarities = rbf_kernel(
+            X = song_input_scaled, Y = df_audio_scaled).T[:,0]
+    
+    df_sim = pd.DataFrame({'track_id' : df['track_id'],
+                           'similarity' : similarities,
+                           'track_name' : df['track_name'],
+                           'artist' : df['artists']})
+    df_sim = df_sim.drop_duplicates(subset = ['artist', 'track_name'], keep = 'first')
+    return df_sim.sort_values('similarity', ascending = False)[0:n_recommendations+1]
