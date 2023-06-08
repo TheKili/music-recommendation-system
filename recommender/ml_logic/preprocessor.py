@@ -12,7 +12,7 @@ from taxifare.ml_logic.encoders import transform_time_features, transform_lonlat
 
 
 
-def process_data_chunks (song_list: {}  json: dict,) -> pd.DataFrame:
+def process_data_chunks (song_list: {}  json: dict) -> pd.DataFrame:
     """
     processes data chunks and add result to co-occurence matrix
     """

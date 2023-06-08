@@ -1,6 +1,10 @@
 ## create_data_matrix
 
 
+make_data:
+	python -c 'from recommender.ml_logic.data import get_colab_data; get_colab_data()'
+
+
 ## install_dependencies
 
 

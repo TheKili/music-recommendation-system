@@ -3,6 +3,7 @@ import numpy as np
 import json
 import multiprocessing
 import dask.array as da
+import os
 
 from google.cloud import bigquery
 from colorama import Fore, Style
@@ -38,7 +39,7 @@ def get_content_helper_data() -> pd.DataFrame:
     Return dataframe
     """
     #local data location
-    local_content_path = '../raw_data/content.csv'
+    local_content_path = os.path.join(os.getcwd(), 'raw_data/content.csv')
 
     #create dataframe
     content = pd.read_csv(local_content_path)
@@ -58,17 +59,18 @@ def get_colab_data(slice_amount = 3) -> pd.DataFrame:
     slice_amount: amount of slices to be read (starting from 0)
     """
     # Specify the path to your JSON file
-    json_file_paths = [f'../raw_data/playlist_data/mpd.slice.{i*1000}-{999+ i * 1000}.json'
-                       for i in range(slice_amount)]
+    local_playlist_path = os.path.join(os.getcwd(), 'raw_data/content.csv')
+    print(local_playlist_path)
+    json_file_paths = os.listdir(local_playlist_path)
 
     # Read the JSON file
     def load_json_file(file_path):
         with open(file_path, 'r') as file:
             return json.load(file)
-    pool = multiprocessing.Pool()
-    json_data = pool.map(load_json_file, json_file_paths)
-    pool.close()
-    pool.join()
+    #pool = multiprocessing.Pool()
+    #json_data = pool.map(load_json_file, json_file_paths)
+    #pool.close()
+    #pool.join()
 
     # Create a list of all tracks
     tracklist = [f'{k*1000 + i} ||| {track["artist_name"]} ||| {track["track_name"]} ||| {track["track_uri"].replace("spotify:track:", "")}'
