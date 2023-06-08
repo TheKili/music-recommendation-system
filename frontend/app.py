@@ -48,35 +48,33 @@ tempo = col5.number_input('Tempo', min_value=0.0, max_value=10.0, value=1.0)
 
 ######## API CALL #######
 "### Your Recommendations"
-# url = "something.endpoint" ### Needs real API Url
-
+url = 'http://localhost:8000/predict'
 if sim_measure != "Polynomial":
-    params = dict(
-        title = input_title,
-        artist = input_artist,
-        metric = sim_measure,
-        popularity = popularity,
-        danceability = danceability,
-        speechiness = speechiness,
-        instrumentalness = instrumentalness,
-        tempo = tempo
-    )
+    params = {
+            'track_input':  input_title,
+            'artist_input': input_artist,
+            'n_recommendations': recom_amount,
+            'metric': sim_measure.lower(),
+            'colab_content_ratio': 1,
+    }
 else:
-    params = dict(
-        title = input_title,
-        artist = input_artist,
-        metric = sim_measure,
-        poly_degree = poly_degree,
-        popularity = popularity,
-        danceability = danceability,
-        speechiness = speechiness,
-        instrumentalness = instrumentalness,
-        tempo = tempo
-    )
-
-#response = requests.get(url, params=params)
-#recommendations = response.json
-
+    params = {
+            'track_input':  input_title,
+            'artist_input': input_artist,
+            'n_recommendations': recom_amount,
+            'metric': sim_measure.lower(),
+            'colab_content_ratio': 1,
+            'pol_degree' :  poly_degree
+    }
+if st.button('Get Recommendations'):
+    response = requests.get(url, params=params)
+    recommendations = pd.DataFrame.from_dict(response.json())
+    recommendations.drop(columns=["track_id"], axis=1, inplace=True)
+    recommendations.reset_index(drop=True, inplace=True)
+    recommendations.rename(columns={"similarity": "Level of Similarity",
+                                    "track_name": "Song Title",
+                                    "artist": "Song Artist"}, inplace=True)
+    st.write(recommendations)
 
 
 "### For Testing"
