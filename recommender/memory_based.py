@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics.pairwise import cosine_similarity, polynomial_kernel, sigmoid_kernel, rbf_kernel
+import joblib
+
 
 def drop_duplicated(df:pd.DataFrame) -> pd.DataFrame:
     '''
@@ -36,7 +38,7 @@ def get_recommendations(song_input: pd.DataFrame,
           keep it like this till the very end to double check if the recommendation system is working:
           you always expect the song itself to be most similar
     '''
-
+    cv = joblib.load('../recommender/pickle/genre_vectorizer.pickle')
     audio_feats = [
              'popularity',
              'duration_ms',
@@ -53,13 +55,20 @@ def get_recommendations(song_input: pd.DataFrame,
              'valence',
              'tempo'
         ]
-    df_audio = df.loc[:, audio_feats]
+
+    genres = list(cv.get_feature_names_out())
+    audio_feats.extend(genres)
+    #transforming input -> count vectorizing the genre
+    song_input = cv.transform(song_input)
+
     song_input = song_input.loc[:, audio_feats]
+    df_audio = df.loc[:, audio_feats]
+    #scaling
     scaler = MinMaxScaler()
     df_audio_scaled = pd.DataFrame(scaler.fit_transform(df_audio), columns = df_audio.columns)
     song_input_scaled = pd.DataFrame(scaler.transform(song_input), columns = df_audio.columns)
     df_audio_scaled = df_audio_scaled.set_index(df['track_id'])
-
+    #choosing metric -> calculating similarities
     if metric == 'cosine':
         similarities = cosine_similarity(X = song_input_scaled, Y = df_audio_scaled).T[:,0]
     elif metric == 'polynomial': #check scoring method: do high numbers indicate similarity or low?
