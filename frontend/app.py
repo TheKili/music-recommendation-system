@@ -78,6 +78,12 @@ if st.button('Get Recommendations'):
 
 
 "### For Testing"
+""
+audio_url = "https://p.scdn.co/mp3-preview/1bf99c2808f44cf89dd9f42e6e3a7804362e53ed?cid=3d24a9c30a8348af9da7088a04163f6b"
+st.audio(audio_url, format='audio/mp3')
+
+
+
 x1 = np.random.randn(200) - 2
 x2 = np.random.randn(200)
 
