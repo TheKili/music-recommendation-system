@@ -3,3 +3,4 @@ raw_data/
 .obsidian/**
 .DS_Store
 notebooks/**
+recommender/__pycache__/**

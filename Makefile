@@ -1,6 +1,6 @@
 ## API actions
 api:
-	uvicorn recommender.API.fast:app --reload --port 8001
+	uvicorn recommender.API.fast:app --reload --port $$PORT
 
 get_welcome:
 	python -c 'from recommender.utils_api import get_welcome; get_welcome()'

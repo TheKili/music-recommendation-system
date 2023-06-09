@@ -34,6 +34,22 @@ def root():
     return dict(greeting="Welcome to our music-recommendation-system!")
     # $CHA_END
 
+@app.get("/spotify_data")
+def get_spotify_data(
+        track_input: str = 'Greatest Dancer', # Yesterday
+        artist_input: str = 'Sister Sledge', # The Beatles
+        ):
+    """
+    Get a dict with spotify data for one track.
+    """
+    # $CHA_BEGIN
+
+    # Get Track_dict
+    track_dict = get_track_info(track_input, artist_input).to_dict()
+
+    return track_dict
+    # $CHA_END
+
 
 @app.get("/predict")
 def predict(
@@ -70,21 +86,4 @@ def predict(
     # among them dict, list, str, int, float, bool
     # in order to be able to convert the api response to JSON
     return recommendations_dict
-    # $CHA_END
-
-
-@app.get("/spotify_data")
-def get_spotify_data(
-        track_input: str = 'Greatest Dancer', # Yesterday
-        artist_input: str = 'Sister Sledge', # The Beatles
-        ):
-    """
-    Get a dict with spotify data for one track.
-    """
-    # $CHA_BEGIN
-
-    # Get Track_dict
-    track_dict = get_track_info(track_input, artist_input).to_dict()
-
-    return track_dict
     # $CHA_END
