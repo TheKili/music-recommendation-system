@@ -48,7 +48,7 @@ tempo = col5.number_input('Tempo', min_value=0.0, max_value=10.0, value=1.0)
 
 ######## API CALL #######
 "### Your Recommendations"
-url = 'http://localhost:8000/predict'
+url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/predict'
 if sim_measure != "Polynomial":
     params = {
             'track_input':  input_title,
