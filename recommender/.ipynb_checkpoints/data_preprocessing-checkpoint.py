@@ -53,13 +53,12 @@ class Genre_vec(BaseEstimator, TransformerMixin):
     def transform(self, df):
         # Implement the transformation logic
         slice = df.loc[:,self.genre_col]
-        slice.apply(lambda x: [i.replace('-', '_') for i in x])
+        slice = slice.apply(lambda x: [i.replace('-', '_') for i in x])
         slice = slice.apply(lambda x: ' '.join(x))
         vectorized = self.cv.transform(slice).todense()
         df_vec = pd.DataFrame(vectorized, columns = self.col_names)
         df = df.drop(columns = [self.genre_col])
-        df = pd.concat([df, df_vec], axis = 1)
-        
+        df = pd.concat([df, df_vec], axis = 1)     
         return df
 
     def get_feature_names_out(self):
@@ -67,7 +66,7 @@ class Genre_vec(BaseEstimator, TransformerMixin):
         return self.col_names
 
     def save_to_pickle(self):
-        joblib.dump(self.cv, '../recommender/pickle/genre_vectorizer.pickle')  
+        joblib.dump(self, '../recommender/pickle/genre_vectorizer.pickle')  
 
 if __name__ == '__main__':
     preprocessing()
