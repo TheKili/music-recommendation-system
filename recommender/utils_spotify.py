@@ -17,8 +17,10 @@ def get_access_token() -> str:
     }
 
     response = requests.post(auth_url, headers=auth_headers, data=auth_data)
+    print(response.text)
     if response.status_code == 200:
         token = response.json().get('access_token')
+
         print('access token retrieved')
         return token
     else:
@@ -41,11 +43,12 @@ def get_track_id(track:str = 'Yesterday', artist:str = 'The Beatles') -> str:
     }
 
     response = requests.get(search_url, headers=headers, params=params)
-
+    print(response.text)
     if response.status_code == 200:
         results = response.json()
         track_id = results['tracks']['items'][0]['id']
         print('Track ID:', track_id)
+
         return results, track_id
     else:
         print('Error:', response.status_code)
@@ -68,7 +71,7 @@ def get_track_info(track:str = 'Yesterday', artist:str = 'The Beatles') -> pd.Da
     }
 
     response = requests.get(url, headers=headers)
-
+    print(response.text)
     if response.status_code == 200:
         audio_features = response.json()
 

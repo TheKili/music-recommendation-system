@@ -17,6 +17,17 @@ def get_welcome():
     return response
 
 
+def get_env():
+    url = 'http://127.0.0.1:8000/env'
+    response = requests.get(url)
+
+    print(response.status_code)
+    print(response.json())
+
+    return response
+
+
+
 
 def get_spotify_data():
     url = 'http://127.0.0.1:8000/spotify_data'
@@ -65,6 +76,14 @@ def get_welcome_gcp():
 
     return response
 
+def get_env_gcp():
+    url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/env'
+    response = requests.get(url)
+
+    print(response.status_code)
+    print(response.json())
+
+    return response
 
 
 def get_spotify_data_gcp():

@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 # $WIPE_BEGIN
 from recommender.memory_based import get_recommendations
 from recommender.utils_spotify import get_track_info
@@ -86,4 +87,16 @@ def predict(
     # among them dict, list, str, int, float, bool
     # in order to be able to convert the api response to JSON
     return recommendations_dict
+    # $CHA_END
+
+
+### TESTS ###
+import os
+
+@app.get("/env")
+def env():
+    # $CHA_BEGIN
+    return dict(SPOTIFY_CLIENT_ID = f'{os.environ.get("SPOTIFY_CLIENT_ID")}',
+                SPOTIFY_CLIENT_SECRET = f'{os.environ.get("SPOTIFY_CLIENT_SECRET")}'
+                )
     # $CHA_END
