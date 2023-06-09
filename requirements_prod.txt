@@ -1,0 +1,14 @@
+uvicorn==0.22.0
+fastapi==0.96.0
+pandas==1.4.4
+spotipy==2.23.0
+scikit-learn[preprocessing]==0.24.2
+scikit-learn[metrics]==0.24.2
+nano
+# bash-completion
+# rlwrap
+
+# RUN pip install -U scikit-learn[preprocessing]==0.24.2 scikit-learn[metrics]==0.24.2
+# apt-get update && apt-get install -y rlwrap #for arrow key support
+# apt-get update && apt-get install -y bash-completion # for tab support
+# apt-get update && apt-get install -y nano # NANO

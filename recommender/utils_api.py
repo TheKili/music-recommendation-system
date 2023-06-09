@@ -8,7 +8,7 @@ import sys
 
 
 def get_welcome():
-    url = 'http://localhost:8000/'
+    url = 'http://localhost:8001/'
     response = requests.get(url)
 
     print(response.status_code)
@@ -18,7 +18,7 @@ def get_welcome():
 
 
 def get_spotify_data():
-    url = 'http://localhost:8000/spotify_data'
+    url = 'http://localhost:8001/spotify_data'
     artist = 'Sister Sledge'
     track = 'greatest dancer'
 
@@ -34,7 +34,7 @@ def get_spotify_data():
 
 
 def get_recommendations():
-    url = 'http://localhost:8000/predict'
+    url = 'http://localhost:8001/predict'
 
     params = {
             'track_input':  'Yesterday',

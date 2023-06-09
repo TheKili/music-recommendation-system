@@ -5,11 +5,11 @@ import pandas as pd
 import os
 
 
-SPOTIFY_SCOPE = 'playlist-modify-public'
-SPOTIFY_USERNAME = 'k3m4'
-SPOTIFY_CLIENT_ID = '5e2b7cca305b465ab85294ae9e7792ef'
-SPOTIFY_CLIENT_SECRET = '8fbfbbf61fb240298c1e6c52d98083df'
-SPOTIFY_REDIRECT_URI = 'http://localhost:8000/callback'
+SPOTIFY_SCOPE = os.environ.get("SPOTIFY_SCOPE")
+SPOTIFY_USERNAME = os.environ.get("SPOTIFY_USERNAME")
+SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
+SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
+SPOTIFY_REDIRECT_URI = os.environ.get("SPOTIFY_REDIRECT_URI")
 token = SpotifyOAuth(scope = SPOTIFY_SCOPE,
                     username = SPOTIFY_USERNAME,
                     client_id = SPOTIFY_CLIENT_ID,

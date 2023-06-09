@@ -1,9 +1,16 @@
 import os
-import numpy as np
+#import numpy as np
+
+##################  SPECIFIC VARIABLES  ##################
+SPOTIFY_SCOPE = os.environ.get("SPOTIFY_SCOPE")
+SPOTIFY_USERNAME = os.environ.get("SPOTIFY_USERNAME")
+SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
+SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
+SPOTIFY_REDIRECT_URI = os.environ.get("SPOTIFY_REDIRECT_URI")
 
 ##################  VARIABLES  ##################
 DATA_SIZE = os.environ.get("DATA_SIZE")
-CHUNK_SIZE = int(os.environ.get("CHUNK_SIZE"))
+#CHUNK_SIZE = int(os.environ.get("CHUNK_SIZE"))
 MODEL_TARGET = os.environ.get("MODEL_TARGET")
 GCP_PROJECT = os.environ.get("GCP_PROJECT")
 GCP_PROJECT_WAGON = os.environ.get("GCP_PROJECT_WAGON")
