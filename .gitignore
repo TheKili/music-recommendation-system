@@ -1,7 +1,9 @@
 raw_data/
 .env
+.env.yaml
 .obsidian/**
 .DS_Store
+.python-version
 recommender/__pycache__/
 recommender/API/__pycache__/
 notebooks/**
