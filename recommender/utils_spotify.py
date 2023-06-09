@@ -3,23 +3,27 @@ from spotipy.oauth2 import SpotifyOAuth
 import pandas as pd
 import os
 
-scope = 'playlist-modify-public'
-username = 'buggy0811'    
+scope = os.environ['SPOTIFY_SCOPE']
+username = os.environ['SPOTIFY_USERNAME']
 token = SpotifyOAuth(scope = os.environ['SPOTIFY_SCOPE'],
                     username = os.environ['SPOTIFY_USERNAME'],
                     client_id = os.environ['SPOTIFY_CLIENT_ID'],
                     client_secret = os.environ['SPOTIFY_CLIENT_SECRET'],
-                    redirect_uri = 'http://127.0.0.1:8080/')
+                    redirect_uri = os.environ['SPOTIFY_REDIRECT_URI'])
 sp = spotipy.Spotify(auth_manager = token)
 
-def get_track_info(track:str, artist:str) -> pd.DataFrame:
+def get_track_info(track:str = 'Yesterday', artist:str = 'The Beatles') -> pd.DataFrame:
     '''
     this function takes the trackname and the artistname as input
     it will return a dataframe with a single row which contains all the features that
     the songs of the original df have so that you can use the output of the function to get recommendations
     '''
     search = f'{artist} {track}'
+
+    # print(sp.current_user())
+    # breakpoint()
     song_info = sp.search(q = search)['tracks']['items'][0]
+    # print(sp.current_user())
     track_id = song_info['id']
     artist_id = song_info['artists'][0]['id']
     album_id = song_info['album']['id']
@@ -45,9 +49,6 @@ def get_track_info(track:str, artist:str) -> pd.DataFrame:
                 'valence' : [audio_feats['valence']],
                 'tempo' : [audio_feats['tempo']],
                 'time_signature' : [audio_feats['time_signature']],
-                'track_genre' : [sp.artist(artist_id)['genres']] 
-})
-
-    
+                'track_genre' : [sp.artist(artist_id)['genres']]
+    })
     return df
-    

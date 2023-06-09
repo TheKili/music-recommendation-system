@@ -1,6 +1,6 @@
 raw_data/
-data/
 .env
 .obsidian/**
 .DS_Store
 recommender/__pycache__/
+notebooks/**
