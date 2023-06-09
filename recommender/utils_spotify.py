@@ -116,3 +116,16 @@ def get_track_info(track:str = 'Yesterday', artist:str = 'The Beatles') -> pd.Da
     else:
         print('Error:', response.status_code)
         return None
+
+def get_single_preview(track_id:str) -> str:
+    token = get_access_token()
+    api_url = f"https://api.spotify.com/v1/tracks/{track_id}"
+    headers = {"Authorization": f"Bearer {token}"}
+    response = requests.get(api_url, headers=headers)
+    response_data = response.json()
+    return response_data["preview_url"]
+
+def get_previews(track_ids:pd.Series)->list :
+    previews = track_ids.apply(lambda x: get_single_preview(x))
+    previews = list(previews)
+    return previews
