@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 # $WIPE_BEGIN
 from recommender.memory_based import get_recommendations
 from recommender.utils_spotify import get_track_info
@@ -32,6 +33,22 @@ app.state.content_df = content_df
 def root():
     # $CHA_BEGIN
     return dict(greeting="Welcome to our music-recommendation-system!")
+    # $CHA_END
+
+@app.get("/spotify_data")
+def get_spotify_data(
+        track_input: str = 'Greatest Dancer', # Yesterday
+        artist_input: str = 'Sister Sledge', # The Beatles
+        ):
+    """
+    Get a dict with spotify data for one track.
+    """
+    # $CHA_BEGIN
+
+    # Get Track_dict
+    track_dict = get_track_info(track_input, artist_input).to_dict()
+
+    return track_dict
     # $CHA_END
 
 
@@ -73,18 +90,13 @@ def predict(
     # $CHA_END
 
 
-@app.get("/spotify_data")
-def get_spotify_data(
-        track_input: str = 'Greatest Dancer', # Yesterday
-        artist_input: str = 'Sister Sledge', # The Beatles
-        ):
-    """
-    Get a dict with spotify data for one track.
-    """
+### TESTS ###
+import os
+
+@app.get("/env")
+def env():
     # $CHA_BEGIN
-
-    # Get Track_dict
-    track_dict = get_track_info(track_input, artist_input).to_dict()
-
-    return track_dict
+    return dict(SPOTIFY_CLIENT_ID = f'{os.environ.get("SPOTIFY_CLIENT_ID")}',
+                SPOTIFY_CLIENT_SECRET = f'{os.environ.get("SPOTIFY_CLIENT_SECRET")}'
+                )
     # $CHA_END
