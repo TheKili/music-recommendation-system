@@ -139,7 +139,7 @@ def get_track_matrix(df: pd.DataFrame, normalize=True, chunk_size_mb = 100) -> n
     result = da.dot(track_to_playlist_da, track_to_playlist_da_T)
     result = result.compute() # <-- This is where the magic happens
 
-    return result
+    return result, playlist_df # PAUL: Added playlist_df for song_mapper (SVD)
 
 
 
