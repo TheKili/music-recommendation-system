@@ -3,9 +3,7 @@ import pandas as pd
 
 # $WIPE_BEGIN
 from recommender.memory_based import get_recommendations
-from recommender.utils_spotify import get_track_info
-
-
+from recommender.utils_spotify import get_track_info, get_previews
 # $WIPE_END
 
 from fastapi import FastAPI
@@ -74,25 +72,38 @@ def predict(
     content_df = app.state.content_df
 
     #Get recommendations
-    recommendations_dict = get_recommendations(track_df,
+    ### TODO: Add weights to recommendations_dict
+
+    recommendations_df = get_recommendations(track_df,
                         content_df,
                         n_recommendations,
                         metric,
-                        pol_degree).to_dict()
+                        pol_degree)
 
-    ### TODO: Add weights to recommendations_dict
+    prevurl_list = get_previews(recommendations_df['track_id'])
+
+    recommendations_dict = recommendations_df.to_dict()
+
     ### TODO: Add colab content (playlist data) and get final recommendations based on colab_content_ratio
+    #get colab matrix
 
-    # ⚠️ fastapi only accepts simple Python data types as a return value
-    # among them dict, list, str, int, float, bool
-    # in order to be able to convert the api response to JSON
+    #get recommendations from colab matrix
+        #get song row in colab matrix
+        #sort descending
+        #return
+
+    #implement weighting between content & colab recommendations
+
+
     return recommendations_dict
+    # return recommendations_dict, prevurl_list
     # $CHA_END
 
 
 ### TESTS ###
 import os
 
+# Test the environment variables
 @app.get("/env")
 def env():
     # $CHA_BEGIN
