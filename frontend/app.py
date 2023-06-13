@@ -68,13 +68,31 @@ else:
     }
 if st.button('Get Recommendations'):
     response = requests.get(url, params=params)
-    recommendations = pd.DataFrame.from_dict(response.json())
+    
+    #st.write(response.json())
+    prev_urls = response.json()['prevurl']
+    track_id = response.json()['track_id']
+    similarity = response.json()['similarity']
+    track_name = response.json()['track_name']
+    artist = response.json()['artist']
+    
+    recommendations =  pd.DataFrame({'track_id' : track_id,
+                                     'similarity' : similarity,
+                                     'track_name' : track_name,
+                                     'artist' : artist})
+    
     recommendations.drop(columns=["track_id"], axis=1, inplace=True)
     recommendations.reset_index(drop=True, inplace=True)
     recommendations.rename(columns={"similarity": "Level of Similarity",
                                     "track_name": "Song Title",
                                     "artist": "Song Artist"}, inplace=True)
-    st.write(recommendations)
+    
+    col1, col2 = st.columns([4, 1])
+    with col1:
+        st.dataframe(recommendations)
+    with col2:
+        for url in prev_urls:
+            st.audio(url, format='audio/mp3')
 
 
 "### For Testing"
