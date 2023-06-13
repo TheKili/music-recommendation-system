@@ -1,6 +1,9 @@
+**/__pycache__/**
 raw_data/
 .env
 .obsidian/**
 .DS_Store
 notebooks/**
 raw_data/**
+**.csv
+**.npy
