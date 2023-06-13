@@ -27,6 +27,9 @@ get_spotify_data_gcp:
 get_recommendations_gcp:
 	python -c 'from recommender.utils_api import get_recommendations_gcp; get_recommendations_gcp()'
 
+get_pwd_gcp:
+	python -c 'from recommender.utils_api import get_pwd_gcp; get_pwd_gcp()'
+
 
 ## create_data_matrix
 

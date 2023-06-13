@@ -30,11 +30,9 @@ else:
 "#### Optional Settings"
 # Similarity Measure to apply
 "(*Optional*) Change the similarity measure to get different results"
-sim_measure = st_btn_select(('Cosine', 'RBF', 'Polynomial', 'Sigmoid'))
+sim_measure = st_btn_select(('Cosine', 'RBF'))
 st.write("Chosen similarity measure:", sim_measure)
-if sim_measure == "Polynomial":
-    poly_degree = st.number_input("Please specifiy polynomial degree", min_value=2, max_value=10, value=2)
-    st.info("Note default degree of 2")
+
 ""
 # Individual weights on (selected) features
 "(*Optional*) Change weights on song features"
@@ -49,48 +47,51 @@ tempo = col5.number_input('Tempo', min_value=0.0, max_value=10.0, value=1.0)
 ######## API CALL #######
 "### Your Recommendations"
 url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/predict'
-if sim_measure != "Polynomial":
-    params = {
+params = {
             'track_input':  input_title,
             'artist_input': input_artist,
             'n_recommendations': recom_amount,
             'metric': sim_measure.lower(),
             'colab_content_ratio': 1,
     }
-else:
-    params = {
-            'track_input':  input_title,
-            'artist_input': input_artist,
-            'n_recommendations': recom_amount,
-            'metric': sim_measure.lower(),
-            'colab_content_ratio': 1,
-            'pol_degree' :  poly_degree
-    }
+
+col1, col2 = st.beta_columns(2)
+
 if st.button('Get Recommendations'):
     response = requests.get(url, params=params)
     recommendations = pd.DataFrame.from_dict(response.json())
-    recommendations.drop(columns=["track_id"], axis=1, inplace=True)
+    prevurls = recommendations["prevurl"].tolist()
+    recommendations.drop(columns=[["track_id","prevurl"]], axis=1, inplace=True)
     recommendations.reset_index(drop=True, inplace=True)
     recommendations.rename(columns={"similarity": "Level of Similarity",
                                     "track_name": "Song Title",
                                     "artist": "Song Artist"}, inplace=True)
-    st.write(recommendations)
+    with col1:
+        st.header("Our Reommendations")
+        st.write(recommendations)
+
+    with col2:
+        st.header("Pre-Listen")
+
+        for url in prevurls:
+            st.audio(url, format='audio/mp3')
+
 
 
 "### For Testing"
 ""
-audio_url = "https://p.scdn.co/mp3-preview/1bf99c2808f44cf89dd9f42e6e3a7804362e53ed?cid=3d24a9c30a8348af9da7088a04163f6b"
-st.audio(audio_url, format='audio/mp3')
+# audio_url = "https://p.scdn.co/mp3-preview/1bf99c2808f44cf89dd9f42e6e3a7804362e53ed?cid=3d24a9c30a8348af9da7088a04163f6b"
+# st.audio(audio_url, format='audio/mp3')
 
 
 
-x1 = np.random.randn(200) - 2
-x2 = np.random.randn(200)
+# x1 = np.random.randn(200) - 2
+# x2 = np.random.randn(200)
 
-df = px.data.iris() # iris is a pandas DataFrame
-fig = px.line(df, x="sepal_width", y="sepal_length")
-fig.add_scatter()
+# df = px.data.iris() # iris is a pandas DataFrame
+# fig = px.line(df, x="sepal_width", y="sepal_length")
+# fig.add_scatter()
 
 
 
-st.plotly_chart(fig, use_container_width=True)
+# st.plotly_chart(fig, use_container_width=True)

@@ -1,10 +1,9 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics.pairwise import cosine_similarity, polynomial_kernel, sigmoid_kernel, rbf_kernel
-from data_preprocessing import Genre_vec
+from recommender.data_preprocessing import Genre_vec
 import joblib
 import os
-import pickle
 
 
 def drop_duplicated(df:pd.DataFrame) -> pd.DataFrame:
@@ -21,14 +20,6 @@ def drop_duplicated(df:pd.DataFrame) -> pd.DataFrame:
     df = pd.merge(left = df, right = genres, on= 'track_id')
     #df = df.drop_duplicates(subset = ['artists', 'track_name'])
     return df
-
-class MyCustomUnpickler(pickle.Unpickler):
-    def find_class(self, module, name):
-
-        if module == "__main__":
-            module = "data_preprocessing"
-        return super().find_class(module, name)
-
 
 def get_recommendations(song_input: pd.DataFrame,
                         df: pd.DataFrame,
@@ -55,9 +46,8 @@ def get_recommendations(song_input: pd.DataFrame,
     path = os.path.dirname(__file__)
     directory = os.path.abspath(os.path.join(path, 'pickle', 'genre_vectorizer.pickle'))
     #directory = '/recommender/pickle/genre_vectorizer.pickle'
-    with open(directory, 'rb') as f:
-        unpickler = MyCustomUnpickler(f)
-        cv = unpickler.load()
+    cv = joblib.load(directory)
+    print(cv)
     audio_feats = [
              'popularity',
              'duration_ms',
@@ -75,7 +65,7 @@ def get_recommendations(song_input: pd.DataFrame,
              'tempo'
         ]
 
-    genres = list(cv)
+    genres = list(cv.get_feature_names_out())
     audio_feats.extend(genres)
     #transforming input -> count vectorizing the genre
     song_input = cv.transform(song_input)
