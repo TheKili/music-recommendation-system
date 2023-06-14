@@ -21,6 +21,7 @@ def drop_duplicated(df:pd.DataFrame) -> pd.DataFrame:
 
 def get_recommendations(song_input: pd.DataFrame,
                         df: pd.DataFrame,
+                        weights: dict = None,
                         n_recommendations: int = 5,
                         metric: str ='cosine',
                         pol_degree: str = 3)-> pd.DataFrame:
@@ -38,15 +39,14 @@ def get_recommendations(song_input: pd.DataFrame,
           keep it like this till the very end to double check if the recommendation system is working:
           you always expect the song itself to be most similar
     '''
-    cv = joblib.load('../recommender/pickle/genre_vectorizer.pickle')
     audio_feats = [
-             'popularity',
-             'duration_ms',
-             'explicit',
+             #'popularity',
+             #'duration_ms',
+             #'explicit',
              'danceability',
              'energy',
              'key',
-             'loudness',
+             #'loudness',
              'mode',
              'speechiness',
              'acousticness',
@@ -56,10 +56,129 @@ def get_recommendations(song_input: pd.DataFrame,
              'tempo'
         ]
 
-    genres = list(cv.get_feature_names_out())
+    genres = ['acoustic',
+            'afrobeat',
+            'age',
+            'alt',
+            'alternative',
+            'ambient',
+            'and',
+            'anime',
+            'bass',
+            'black',
+            'bluegrass',
+            'blues',
+            'brazil',
+            'breakbeat',
+            'british',
+            'cantopop',
+            'chicago',
+            'children',
+            'chill',
+            'classical',
+            'club',
+            'comedy',
+            'country',
+            'dance',
+            'dancehall',
+            'death',
+            'deep',
+            'detroit',
+            'disco',
+            'disney',
+            'drum',
+            'dub',
+            'dubstep',
+            'edm',
+            'electro',
+            'electronic',
+            'emo',
+            'film',
+            'folk',
+            'forro',
+            'french',
+            'funk',
+            'garage',
+            'german',
+            'gospel',
+            'goth',
+            'grindcore',
+            'groove',
+            'grunge',
+            'guitar',
+            'happy',
+            'hard',
+            'hardcore',
+            'hardstyle',
+            'heavy',
+            'hip',
+            'honky',
+            'hop',
+            'house',
+            'idm',
+            'idol',
+            'indian',
+            'indie',
+            'industrial',
+            'iranian',
+            'jazz',
+            'kids',
+            'latin',
+            'latino',
+            'malay',
+            'mandopop',
+            'metal',
+            'metalcore',
+            'minimal',
+            'mpb',
+            'music',
+            'new',
+            'opera',
+            'pagode',
+            'party',
+            'piano',
+            'pop',
+            'power',
+            'progressive',
+            'psych',
+            'punk',
+            'reggae',
+            'reggaeton',
+            'rock',
+            'rockabilly',
+            'roll',
+            'romance',
+            'sad',
+            'salsa',
+            'samba',
+            'sertanejo',
+            'show',
+            'singer',
+            'ska',
+            'sleep',
+            'songwriter',
+            'soul',
+            'spanish',
+            'study',
+            'swedish',
+            'synth',
+            'tango',
+            'techno',
+            'tonk',
+            'trance',
+            'trip',
+            'tunes',
+            'turkish',
+            'world']
+
     audio_feats.extend(genres)
     #transforming input -> count vectorizing the genre
-    song_input = cv.transform(song_input)
+    for genre in genres:
+        song_input[genre] = 0
+
+    for item in song_input['track_genre'][0]:
+        if item in song_input.columns:
+            song_input[item] = 1
 
     song_input = song_input.loc[:, audio_feats]
     df_audio = df.loc[:, audio_feats]
@@ -68,6 +187,15 @@ def get_recommendations(song_input: pd.DataFrame,
     df_audio_scaled = pd.DataFrame(scaler.fit_transform(df_audio), columns = df_audio.columns)
     song_input_scaled = pd.DataFrame(scaler.transform(song_input), columns = df_audio.columns)
     df_audio_scaled = df_audio_scaled.set_index(df['track_id'])
+    
+    #applying weights:
+    if weights:
+        for key, value in weights.items():
+            song_input_scaled[key] = song_input_scaled[key] * value
+    
+        for key, value in weights.items():
+            df_audio_scaled[key] = df_audio_scaled[key] * value    
+    
     #choosing metric -> calculating similarities
     if metric == 'cosine':
         similarities = cosine_similarity(X = song_input_scaled, Y = df_audio_scaled).T[:,0]
@@ -83,8 +211,18 @@ def get_recommendations(song_input: pd.DataFrame,
             X = song_input_scaled, Y = df_audio_scaled).T[:,0]
 
     df_sim = pd.DataFrame({'track_id' : df['track_id'],
-                           'similarity' : similarities,
-                           'track_name' : df['track_name'],
-                           'artist' : df['artists']})
+                            'similarity' : similarities,
+                            'track_name' : df['track_name'],
+                            'artist' : df['artists'],
+                            'danceability' : df['danceability'],
+                            'energy' : df['energy'],
+                            'key' : df['key'],
+                            'mode' : df['mode'],
+                            'speechiness' : df['speechiness'],
+                            'acousticness' : df['acousticness'],
+                            'instrumentalness' : df['instrumentalness'],
+                            'liveness' : df['liveness'],
+                            'valence' : df['valence'],
+                            'tempo' : df['tempo']})
     df_sim = df_sim.drop_duplicates(subset = ['artist', 'track_name'], keep = 'first')
     return df_sim.sort_values('similarity', ascending = False)[0:n_recommendations+1]

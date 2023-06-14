@@ -22,7 +22,7 @@ app.add_middleware(
 
 # Get data
 # $CHA_BEGIN
-content_df = pd.read_csv('raw_data/content.csv')
+content_df = pd.read_csv('preprocessed_data/data_preprocessed.csv')
 content_df = content_df.drop_duplicates(subset='track_id')
 app.state.content_df = content_df
 # $CHA_END
@@ -57,8 +57,8 @@ def predict(
         n_recommendations: int = 5,  # 10
         metric: str ='cosine',    # cosine, sigmoid, polynomial...
         colab_content_ratio: float = 1,     # 0-1
-        pol_degree : str = 2
-        # weights (popularity, danceability, speechiness, instrumentalness, tempo)
+        pol_degree : str = 2,
+        weights:dict
     ):      # 1
     """
     Get a dict with n recommendations based on several inputs.
@@ -78,11 +78,14 @@ def predict(
                         content_df,
                         n_recommendations,
                         metric,
-                        pol_degree)
+                        pol_degree,
+                        weights)
 
     prevurl_list = get_previews(recommendations_df['track_id'])
 
     recommendations_dict = recommendations_df.to_dict()
+
+    recommendations_dict['prevurl'] = prevurl_list
 
     ### TODO: Add colab content (playlist data) and get final recommendations based on colab_content_ratio
     #get colab matrix

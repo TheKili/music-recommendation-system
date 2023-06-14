@@ -69,6 +69,8 @@ def get_recommendations():
 
 def get_welcome_gcp():
     url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app'
+    # url = 'https://test-t3ozapnnrq-ew.a.run.app'
+
     response = requests.get(url)
 
     print(response.status_code)
@@ -78,6 +80,7 @@ def get_welcome_gcp():
 
 def get_env_gcp():
     url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/env'
+    # url = 'https://test-t3ozapnnrq-ew.a.run.app'
     response = requests.get(url)
 
     print(response.status_code)
@@ -88,6 +91,7 @@ def get_env_gcp():
 
 def get_spotify_data_gcp():
     url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/spotify_data'
+    # url = 'https://test-t3ozapnnrq-ew.a.run.app'
     artist = 'Sister Sledge'
     track = 'greatest dancer'
 
@@ -105,6 +109,7 @@ def get_spotify_data_gcp():
 
 def get_recommendations_gcp():
     url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/predict'
+    # url = 'https://test-t3ozapnnrq-ew.a.run.app/predict'
 
     params = {
             'track_input':  'Yesterday',
