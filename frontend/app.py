@@ -177,7 +177,7 @@ with st.sidebar:
 
 
 
-if submit_button:
+if st.button('Get Recommendations'):
     response = requests.get(url, params=params)
 
     #st.write(response.json())
