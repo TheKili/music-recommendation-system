@@ -39,13 +39,13 @@ def get_recommendations(song_input: pd.DataFrame,
           you always expect the song itself to be most similar
     '''
     audio_feats = [
-             'popularity',
-             'duration_ms',
-             'explicit',
+             #'popularity',
+             #'duration_ms',
+             #'explicit',
              'danceability',
              'energy',
              'key',
-             'loudness',
+             #'loudness',
              'mode',
              'speechiness',
              'acousticness',

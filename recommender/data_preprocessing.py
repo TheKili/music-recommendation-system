@@ -8,6 +8,8 @@ def preprocessing():
     data_path = os.path.join(os.path.dirname(os.getcwd()), 'raw_data/dataset.csv')
     df = pd.read_csv(data_path, index_col = 0)
     df = drop_duplicated(df)
+    columns_to_drop = ['popularity', 'duration_ms', 'explicit', 'loudness']
+    df = df.drop(columns = columns_to_drop)
     gv = Genre_vec()
     gv.fit(df, 'track_genre')
     df = gv.transform(df)
