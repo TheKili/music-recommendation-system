@@ -57,8 +57,8 @@ def predict(
         n_recommendations: int = 5,  # 10
         metric: str ='cosine',    # cosine, sigmoid, polynomial...
         colab_content_ratio: float = 1,     # 0-1
-        pol_degree : str = 2
-        # weights (popularity, danceability, speechiness, instrumentalness, tempo)
+        pol_degree : str = 2,
+        weights:dict
     ):      # 1
     """
     Get a dict with n recommendations based on several inputs.
@@ -78,7 +78,8 @@ def predict(
                         content_df,
                         n_recommendations,
                         metric,
-                        pol_degree)
+                        pol_degree,
+                        weights)
 
     prevurl_list = get_previews(recommendations_df['track_id'])
 
