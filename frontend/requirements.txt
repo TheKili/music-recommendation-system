@@ -2,6 +2,6 @@ streamlit
 numpy
 pandas
 requests
-plotly.graph_objects
+plotly
 st_btn_select
 sklearn.preprocessing
