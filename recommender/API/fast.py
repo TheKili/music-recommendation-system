@@ -55,15 +55,34 @@ def predict(
         track_input: str = 'Yesterday', # Yesterday
         artist_input: str = 'The Beatles', # The Beatles
         n_recommendations: int = 5,  # 10
-        metric: str ='cosine',    # cosine, sigmoid, polynomial...
-        colab_content_ratio: float = 1,     # 0-1
+        metric: str ='cosine',    # cosine or rbf
         pol_degree : str = 2,
-        weights:dict
-    ):      # 1
+        danceability : float = 1,
+        energy : float = 1,
+        key : float = 1,
+        mode : float = 1,
+        speechiness : float = 1,
+        acousticness : float = 1,
+        instrumentalness : float = 1,
+        liveness : float = 1,
+        valence : float = 1,
+        tempo : float = 1
+    ):
     """
     Get a dict with n recommendations based on several inputs.
     """
     # $CHA_BEGIN
+    weights = {'danceability' : danceability,
+                'energy' : energy,
+                'key' : key,
+                'mode' : mode,
+                'speechiness' : speechiness,
+                'acousticness' : acousticness,
+                'instrumentalness' : instrumentalness,
+                'liveness' : liveness,
+                'valence' : valence,
+                'tempo' : tempo}
+    print(weights)
 
     # Get Track_df
     track_df = get_track_info(track_input, artist_input)
@@ -73,6 +92,7 @@ def predict(
 
     #Get recommendations
     ### TODO: Add weights to recommendations_dict
+
 
     recommendations_df = get_recommendations(track_df,
                         content_df,

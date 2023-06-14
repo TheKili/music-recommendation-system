@@ -21,10 +21,19 @@ def drop_duplicated(df:pd.DataFrame) -> pd.DataFrame:
 
 def get_recommendations(song_input: pd.DataFrame,
                         df: pd.DataFrame,
-                        weights: dict = None,
                         n_recommendations: int = 5,
                         metric: str ='cosine',
-                        pol_degree: str = 3)-> pd.DataFrame:
+                        pol_degree: str = 3,
+                        weights: dict = {'danceability' : 1,
+                            'energy' : 1,
+                            'key' : 1,
+                            'mode' : 1,
+                            'speechiness' : 1,
+                            'acousticness' : 1,
+                            'instrumentalness' : 1,
+                            'liveness' : 1,
+                            'valence' : 1,
+                            'tempo' : 1})-> pd.DataFrame:
     '''
     This function takes a 1-row dataframe as an input. This row should contain at least all the features that you can
     see below in the 'audio_feats' list. This kind of dataframe is provided by the output of the 'get_track_info'
@@ -187,15 +196,16 @@ def get_recommendations(song_input: pd.DataFrame,
     df_audio_scaled = pd.DataFrame(scaler.fit_transform(df_audio), columns = df_audio.columns)
     song_input_scaled = pd.DataFrame(scaler.transform(song_input), columns = df_audio.columns)
     df_audio_scaled = df_audio_scaled.set_index(df['track_id'])
-    
+    print(weights)
+    print(type(weights))
     #applying weights:
     if weights:
         for key, value in weights.items():
             song_input_scaled[key] = song_input_scaled[key] * value
-    
+
         for key, value in weights.items():
-            df_audio_scaled[key] = df_audio_scaled[key] * value    
-    
+            df_audio_scaled[key] = df_audio_scaled[key] * value
+
     #choosing metric -> calculating similarities
     if metric == 'cosine':
         similarities = cosine_similarity(X = song_input_scaled, Y = df_audio_scaled).T[:,0]
