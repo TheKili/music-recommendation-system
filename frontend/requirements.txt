@@ -4,4 +4,4 @@ pandas
 requests
 plotly
 st_btn_select
-sklearn
+scikit-learn
