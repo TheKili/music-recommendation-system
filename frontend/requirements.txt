@@ -2,5 +2,7 @@ streamlit
 numpy
 pandas
 requests
-plotly.express
+plotly
 st_btn_select
+scikit-learn
+streamlit-vertical-slider
