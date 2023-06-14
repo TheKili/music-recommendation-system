@@ -130,34 +130,40 @@ with st.sidebar:
                             max_value=10
                             )
         "tempo"
+        valence = svs.vertical_slider(
+                                key="valence",
+                                default_value=1,
+                                step=0.1,
+                                min_value=0,
+                                max_value=10
+                                )
+        "valence"
+
+    ######## API CALL #######
+    url = 'https://test-t3ozapnnrq-ew.a.run.app/predict'
+    params = {
+                'track_input':  input_title,
+                'artist_input': input_artist,
+                'n_recommendations': recom_amount,
+                'metric':sim_measure.lower(),
+                'danceability' : danceability,
+                'energy' : energy,
+                'key' : key,
+                'mode' : mode,
+                'speechiness' : speechiness,
+                'acousticness' : acousticness,
+                'instrumentalness' : instrumentalness,
+                'liveness' : liveness,
+                'valence' : valence,
+                'tempo' : tempo
+        }
+    submit_button =  st.button('Get Recommendations')
 
 
-        ######## API CALL #######
-        "### Your Recommendations"
-        url = 'https://test-t3ozapnnrq-ew.a.run.app/predict'
-        params = {
-                    'track_input':  input_title,
-                    'artist_input': input_artist,
-                    'n_recommendations': recom_amount,
-                    'metric':sim_measure.lower(),
-                    'danceability' : danceability,
-                    'energy' : 1,
-                    'key' : 1,
-                    'mode' : 1,
-                    'speechiness' : 1,
-                    'acousticness' : 1,
-                    'instrumentalness' : 1,
-                    'liveness' : 1,
-                    'valence' : 1,
-                    'tempo' : 1
-            }
 
 
 
-
-
-if st.button('Get Recommendations'):
-    st.write(params)
+if submit_button:
     response = requests.get(url, params=params)
     if response.status_code == 200:
     #st.write(response.json())
