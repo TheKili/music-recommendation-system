@@ -2,9 +2,11 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import requests
-import plotly.express as px
+import plotly.graph_objects as go
 from st_btn_select import st_btn_select
+from sklearn.preprocessing import MinMaxScaler
 
+st.set_page_config(layout="wide")
 '''
 # Music Recommendation Frontend
 ### Here you can find recommendations for your favorite songs!
@@ -48,7 +50,7 @@ tempo = col5.number_input('Tempo', min_value=0.0, max_value=10.0, value=1.0)
 
 ######## API CALL #######
 "### Your Recommendations"
-url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/predict'
+url = 'https://test-t3ozapnnrq-ew.a.run.app/predict'
 if sim_measure != "Polynomial":
     params = {
             'track_input':  input_title,
@@ -56,6 +58,16 @@ if sim_measure != "Polynomial":
             'n_recommendations': recom_amount,
             'metric': sim_measure.lower(),
             'colab_content_ratio': 1,
+            'danceability':1,
+             'energy':1,
+             'key':1,
+             'mode':1,
+             'speechiness':1,
+             'acousticness':1,
+             'instrumentalness':1,
+             'liveness':1,
+             'valence':1,
+             'tempo':1
     }
 else:
     params = {
@@ -64,51 +76,94 @@ else:
             'n_recommendations': recom_amount,
             'metric': sim_measure.lower(),
             'colab_content_ratio': 1,
-            'pol_degree' :  poly_degree
+            'pol_degree' :  poly_degree,
+             'danceability':1,
+             'energy':1,
+             'key':1,
+             'mode':1,
+             'speechiness':1,
+             'acousticness':1,
+             'instrumentalness':1,
+             'liveness':1,
+             'valence':1,
+             'tempo':1
     }
+
 if st.button('Get Recommendations'):
     response = requests.get(url, params=params)
-    
+
     #st.write(response.json())
     prev_urls = response.json()['prevurl']
+    prev_songs = [f'<audio id="{url}" controls="" src="{url}" class="stAudio" style="width: 50px;"></audio>' for url in prev_urls]
     track_id = response.json()['track_id']
     similarity = response.json()['similarity']
     track_name = response.json()['track_name']
     artist = response.json()['artist']
-    
+    danceability = response.json()['danceability']
+    key = response.json()['key']
+    mode = response.json()['mode']
+    speechiness = response.json()['speechiness']
+    acousticness = response.json()['acousticness']
+    instrumentalness = response.json()['instrumentalness']
+    liveness = response.json()['liveness']
+    valence = response.json()['valence']
+    tempo = response.json()['tempo']
+
+
     recommendations =  pd.DataFrame({'track_id' : track_id,
                                      'similarity' : similarity,
                                      'track_name' : track_name,
-                                     'artist' : artist})
-    
+                                     'artist' : artist,
+                                     'danceability' : danceability,
+                                    'key' : key,
+                                    'mode' : mode,
+                                    'speechiness' : speechiness,
+                                    'acousticness' : acousticness,
+                                    'instrumentalness' : instrumentalness,
+                                    'liveness' : liveness,
+                                    'valence' : valence,
+                                    'tempo' : tempo
+                                     })
+
     recommendations.drop(columns=["track_id"], axis=1, inplace=True)
     recommendations.reset_index(drop=True, inplace=True)
     recommendations.rename(columns={"similarity": "Level of Similarity",
                                     "track_name": "Song Title",
                                     "artist": "Song Artist"}, inplace=True)
-    
-    col1, col2 = st.columns([4, 1])
-    with col1:
-        st.dataframe(recommendations)
-    with col2:
-        for url in prev_urls:
-            st.audio(url, format='audio/mp3')
+    recommendations["song_preview"] = prev_songs
 
 
-"### For Testing"
-""
-audio_url = "https://p.scdn.co/mp3-preview/1bf99c2808f44cf89dd9f42e6e3a7804362e53ed?cid=3d24a9c30a8348af9da7088a04163f6b"
-st.audio(audio_url, format='audio/mp3')
+    feature_scale = ["danceability","key" ,"mode","speechiness" ,"acousticness","instrumentalness","liveness","valence","tempo"]
+    scaler = MinMaxScaler()
+    recommendations[feature_scale] = pd.DataFrame(scaler.fit_transform(recommendations[feature_scale]), columns = feature_scale)
+    features = ["Level of Similarity","danceability","speechiness" ,"acousticness","liveness","valence","tempo"]
+
+    fig = go.Figure()
+    for row in recommendations.iterrows():
+        fig.add_trace(go.Scatterpolar(
+                r= row[1][features],
+                theta=features,
+                fill='none',
+                name= row[1]["Song Title"],
+                textposition="top center"
+            ))
+
+    fig.update_layout(
+    width=1500,
+    height=1500,
+    polar=dict(
+    radialaxis=dict(
+      visible=True
+    ),
+    ),
+    legend=dict(
+    orientation="h",
+
+    )
+    )
+    st.plotly_chart(fig, use_container_width=True)
 
 
-
-x1 = np.random.randn(200) - 2
-x2 = np.random.randn(200)
-
-df = px.data.iris() # iris is a pandas DataFrame
-fig = px.line(df, x="sepal_width", y="sepal_length")
-fig.add_scatter()
-
-
-
-st.plotly_chart(fig, use_container_width=True)
+    st.snow()
+    st.write(recommendations.to_html(escape=False, index=False), unsafe_allow_html=True)
+    values = recommendations.loc[0,["Level of Similarity"]]
