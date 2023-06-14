@@ -5,3 +5,4 @@ requests
 plotly
 st_btn_select
 scikit-learn
+streamlit-vertical-slider
