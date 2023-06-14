@@ -22,7 +22,7 @@ app.add_middleware(
 
 # Get data
 # $CHA_BEGIN
-content_df = pd.read_csv('raw_data/content.csv')
+content_df = pd.read_csv('preprocessed_data/data_preprocessed.csv')
 content_df = content_df.drop_duplicates(subset='track_id')
 app.state.content_df = content_df
 # $CHA_END
@@ -83,6 +83,8 @@ def predict(
     prevurl_list = get_previews(recommendations_df['track_id'])
 
     recommendations_dict = recommendations_df.to_dict()
+
+    recommendations_dict['prevurl'] = prevurl_list
 
     ### TODO: Add colab content (playlist data) and get final recommendations based on colab_content_ratio
     #get colab matrix
