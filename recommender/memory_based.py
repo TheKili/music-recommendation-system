@@ -201,8 +201,18 @@ def get_recommendations(song_input: pd.DataFrame,
             X = song_input_scaled, Y = df_audio_scaled).T[:,0]
 
     df_sim = pd.DataFrame({'track_id' : df['track_id'],
-                           'similarity' : similarities,
-                           'track_name' : df['track_name'],
-                           'artist' : df['artists']})
+                            'similarity' : similarities,
+                            'track_name' : df['track_name'],
+                            'artist' : df['artists'],
+                            'danceability' : df['danceability'],
+                            'energy' : df['energy'],
+                            'key' : df['key'],
+                            'mode' : df['mode'],
+                            'speechiness' : df['speechiness'],
+                            'acousticness' : df['acousticness'],
+                            'instrumentalness' : df['instrumentalness'],
+                            'liveness' : df['liveness'],
+                            'valence' : df['valence'],
+                            'tempo' : df['tempo']})
     df_sim = df_sim.drop_duplicates(subset = ['artist', 'track_name'], keep = 'first')
     return df_sim.sort_values('similarity', ascending = False)[0:n_recommendations+1]
