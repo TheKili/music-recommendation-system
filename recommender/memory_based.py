@@ -21,6 +21,7 @@ def drop_duplicated(df:pd.DataFrame) -> pd.DataFrame:
 
 def get_recommendations(song_input: pd.DataFrame,
                         df: pd.DataFrame,
+                        weights: dict = None,
                         n_recommendations: int = 5,
                         metric: str ='cosine',
                         pol_degree: str = 3)-> pd.DataFrame:
@@ -186,6 +187,15 @@ def get_recommendations(song_input: pd.DataFrame,
     df_audio_scaled = pd.DataFrame(scaler.fit_transform(df_audio), columns = df_audio.columns)
     song_input_scaled = pd.DataFrame(scaler.transform(song_input), columns = df_audio.columns)
     df_audio_scaled = df_audio_scaled.set_index(df['track_id'])
+    
+    #applying weights:
+    if weights:
+        for key, value in weights.items():
+            song_input_scaled[key] = song_input_scaled[key] * value
+    
+        for key, value in weights.items():
+            df_audio_scaled[key] = df_audio_scaled[key] * value    
+    
     #choosing metric -> calculating similarities
     if metric == 'cosine':
         similarities = cosine_similarity(X = song_input_scaled, Y = df_audio_scaled).T[:,0]
