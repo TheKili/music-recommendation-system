@@ -40,13 +40,13 @@ def get_recommendations(song_input: pd.DataFrame,
     '''
     cv = joblib.load('../recommender/pickle/genre_vectorizer.pickle')
     audio_feats = [
-             'popularity',
-             'duration_ms',
-             'explicit',
+             #'popularity',
+             #'duration_ms',
+             #'explicit',
              'danceability',
              'energy',
              'key',
-             'loudness',
+             #'loudness',
              'mode',
              'speechiness',
              'acousticness',
