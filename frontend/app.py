@@ -35,7 +35,7 @@ with st.sidebar:
     "#### Optional Settings"
     # Similarity Measure to apply
     "(*Optional*) Change the similarity measure to get different results"
-    sim_measure = st_btn_select(('Cosine', 'RBF', 'Polynomial', 'Sigmoid'))
+    sim_measure = st_btn_select(('Cosine', 'RBF'))
     st.write("Chosen similarity measure:", sim_measure)
     if sim_measure == "Polynomial":
         poly_degree = st.number_input("Please specifiy polynomial degree", min_value=2, max_value=10, value=2)
@@ -139,17 +139,17 @@ with st.sidebar:
                     'track_input':  input_title,
                     'artist_input': input_artist,
                     'n_recommendations': recom_amount,
-                    'metric':'cosine',
-                    'weights' :  {'danceability' : 1,
-                                    'energy' : 1,
-                                    'key' : 1,
-                                    'mode' : 1,
-                                    'speechiness' : 1,
-                                    'acousticness' : 1,
-                                    'instrumentalness' : 1,
-                                    'liveness' : 1,
-                                    'valence' : 1,
-                                    'tempo' : 1}
+                    'metric':sim_measure.lower(),
+                    'danceability' : danceability,
+                    'energy' : 1,
+                    'key' : 1,
+                    'mode' : 1,
+                    'speechiness' : 1,
+                    'acousticness' : 1,
+                    'instrumentalness' : 1,
+                    'liveness' : 1,
+                    'valence' : 1,
+                    'tempo' : 1
             }
 
 
@@ -159,7 +159,7 @@ with st.sidebar:
 if st.button('Get Recommendations'):
     st.write(params)
     response = requests.get(url, params=params)
-    if response.status_code == 202:
+    if response.status_code == 200:
     #st.write(response.json())
 
         prev_urls = response.json()['prevurl']
