@@ -181,7 +181,7 @@ with customise:
 
 
 ######## API CALL #######
-    url = 'https://test-t3ozapnnrq-ew.a.run.app/predict'
+    url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/predict'
     params = {
                 'track_input':  input_title,
                 'artist_input': input_artist,
@@ -209,8 +209,8 @@ if submit_button:
     if response.status_code == 200:
 
         st.write(response.json())
-        prev_urls = response.json()['prevurl']
-        prev_songs = [f'<audio id="{url}" controls="" src="{url}" class="stAudio" style="width: 70px;"></audio>' for url in prev_urls]
+        #prev_urls = response.json()['prevurl']
+        #prev_songs = [f'<audio id="{url}" controls="" src="{url}" class="stAudio" style="width: 70px;"></audio>' for url in prev_urls]
         track_id = response.json()['track_id']
         similarity = response.json()['similarity']
         track_name = response.json()['track_name']
@@ -246,7 +246,7 @@ if submit_button:
         recommendations.rename(columns={"similarity": "Level of Similarity",
                                         "track_name": "Song Title",
                                         "artist": "Song Artist"}, inplace=True)
-        recommendations["song_preview"] = prev_songs
+        #recommendations["song_preview"] = prev_songs
 
         rc_scaled = recommendations.copy()
         feature_scale = ["danceability","key" ,"mode","speechiness" ,"acousticness","instrumentalness","liveness","valence","tempo"]
