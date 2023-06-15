@@ -23,7 +23,6 @@ def get_recommendations(song_input: pd.DataFrame,
                         df: pd.DataFrame,
                         n_recommendations: int = 5,
                         metric: str ='cosine',
-                        pol_degree: str = 3,
                         weights: dict = {'danceability' : 1,
                             'energy' : 1,
                             'key' : 1,
@@ -196,8 +195,6 @@ def get_recommendations(song_input: pd.DataFrame,
     df_audio_scaled = pd.DataFrame(scaler.fit_transform(df_audio), columns = df_audio.columns)
     song_input_scaled = pd.DataFrame(scaler.transform(song_input), columns = df_audio.columns)
     df_audio_scaled = df_audio_scaled.set_index(df['track_id'])
-    print(weights)
-    print(type(weights))
     #applying weights:
     if weights:
         for key, value in weights.items():
@@ -209,21 +206,16 @@ def get_recommendations(song_input: pd.DataFrame,
     #choosing metric -> calculating similarities
     if metric == 'cosine':
         similarities = cosine_similarity(X = song_input_scaled, Y = df_audio_scaled).T[:,0]
-    elif metric == 'polynomial': #check scoring method: do high numbers indicate similarity or low?
-        similarities = polynomial_kernel(
-            X = song_input_scaled, Y = df_audio_scaled, degree=pol_degree).T[:,0]
-        #similarities = 1/similarities
-    elif metric == 'sigmoid': #check scoring method: do high numbers indicate similarity or low?
-        similarities = sigmoid_kernel(
-            X = song_input_scaled, Y = df_audio_scaled).T[:,0]
+
     elif metric == 'rbf': #high numbers indicate high similarity
         similarities = rbf_kernel(
             X = song_input_scaled, Y = df_audio_scaled).T[:,0]
 
     df_sim = pd.DataFrame({'track_id' : df['track_id'],
                             'similarity' : similarities,
+                            'artists' : df['artists'],
                             'track_name' : df['track_name'],
-                            'artist' : df['artists'],
+                            'album_name' : df['album_name'],
                             'danceability' : df['danceability'],
                             'energy' : df['energy'],
                             'key' : df['key'],
@@ -234,5 +226,5 @@ def get_recommendations(song_input: pd.DataFrame,
                             'liveness' : df['liveness'],
                             'valence' : df['valence'],
                             'tempo' : df['tempo']})
-    df_sim = df_sim.drop_duplicates(subset = ['artist', 'track_name'], keep = 'first')
-    return df_sim.sort_values('similarity', ascending = False)[0:n_recommendations+1]
+    df_sim = df_sim.drop_duplicates(subset = ['artists', 'track_name'], keep = 'first')
+    return df_sim.sort_values('similarity', ascending = False)[0:n_recommendations+1], genres

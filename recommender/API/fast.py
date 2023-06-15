@@ -56,7 +56,6 @@ def predict(
         artist_input: str = 'The Beatles', # The Beatles
         n_recommendations: int = 5,  # 10
         metric: str ='cosine',    # cosine or rbf
-        pol_degree : str = 2,
         danceability : float = 1,
         energy : float = 1,
         key : float = 1,
@@ -82,7 +81,6 @@ def predict(
                 'liveness' : liveness,
                 'valence' : valence,
                 'tempo' : tempo}
-    print(weights)
 
     # Get Track_df
     track_df = get_track_info(track_input, artist_input)
@@ -94,16 +92,20 @@ def predict(
     ### TODO: Add weights to recommendations_dict
 
 
-    recommendations_df = get_recommendations(track_df,
+    recommendations_df, genres = get_recommendations(track_df,
                         content_df,
                         n_recommendations,
                         metric,
-                        pol_degree,
                         weights)
+    track_df.drop(genres, axis = 1, inplace = True)
+    prevurl_list = get_previews(track_df['track_id'])
+    prevurl_list.extend(get_previews(recommendations_df['track_id']))
+    track_df['similarity'] = 1
+    track_df.drop(['time_signature', 'track_genre'], axis=1, inplace=True)
+    result = pd.concat([track_df, recommendations_df], axis = 0)
+    result = result.drop_duplicates(subset = ['artists', 'track_name'], keep = 'first')
 
-    prevurl_list = get_previews(recommendations_df['track_id'])
-
-    recommendations_dict = recommendations_df.to_dict()
+    recommendations_dict = result.to_dict()
 
     recommendations_dict['prevurl'] = prevurl_list
 
