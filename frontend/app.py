@@ -30,7 +30,7 @@ st.markdown("""
     z-index: 0;
     top: 0;
     left: auto;
-    right: 100px;
+    right: 10px;
     }
 
 @keyframes hideshow {
