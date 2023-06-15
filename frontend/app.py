@@ -202,7 +202,9 @@ with customise:
 submit_button =  st.button('Get Recommendations')
 
 if submit_button:
-    response_0 = requests.get(url, params={"n_recommendations" : 1})
+    params_song = params.copy()
+    params_song["n_recommendations"] = 0
+    response_0 = requests.get(url, params = params_song )
     prev_url_song = response_0.json()['prevurl']
     st.audio(prev_url_song[0])
 
