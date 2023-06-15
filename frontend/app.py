@@ -8,33 +8,48 @@ from st_btn_select import st_btn_select
 from sklearn.preprocessing import MinMaxScaler
 
 st.set_page_config(layout="wide")
-'''
-# Music Recommendation Frontend
-### Here you can find recommendations for your favorite songs!
-'''
-""
-# User Song Input
-"<------ First, let us know the **song you want to get recommendations** for"
+st.markdown("""
+<style>
+.big-font {
+    font-size:11em !important;
 
-with st.sidebar:
-    input_title = st.text_input("Please input your song title", max_chars=30)
-    input_artist = st.text_input("Please input your song artist", max_chars=30)
+}
+.bg-image{
+    background-image:url('radar.png')
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown('<p class="big-font bg-image"><i>Rhythm</i> </br> Radar</p> <p style="text-align:right;"> Your <i> customizable</i> Music Recommendation System</p>', unsafe_allow_html=True)
+
+
+
+search,  customise = st.tabs(["1. Select your Song and Artist", "2. Customise"])
+
+with search:
+    col_song, col_artist = st.columns(2)
+    with col_song:
+        input_title = st.text_input("Please input your song title", max_chars=30)
+    with col_artist:
+        input_artist = st.text_input("Please input your song artist", max_chars=30)
     st.write("We will search for recommendations for:", f"*{input_artist}, {input_title}*")
-    ""
-    # Amount Recommendations asked
-    "Next, adjust the **amount of recommendations** you want to get"
-    recom_amount = st.slider("Select recommendation quantity", 1, 100, value=5)
-    ""
+
     if input_artist and input_title:
         st.success("Sufficient Information to search for recommendations")
         "Please proceed after Optional Settings for recommendations"
     else:
         st.warning("Please specify at least Title and Artist")
 
+    ""
+    # Amount Recommendations asked
+    "Next, adjust the **amount of recommendations** you want to get"
+    recom_amount = st.slider("Select recommendation quantity", 1, 100, value=5)
+    ""
 
-    "#### Optional Settings"
-    # Similarity Measure to apply
-    "(*Optional*) Change the similarity measure to get different results"
+
+with customise:
+
+
+    "### How do _you_ want your similarity to be measured"
     sim_measure = st_btn_select(('Cosine', 'RBF'))
     st.write("Chosen similarity measure:", sim_measure)
     if sim_measure == "Polynomial":
@@ -42,8 +57,9 @@ with st.sidebar:
         st.info("Note default degree of 2")
     ""
     # Individual weights on (selected) features
-    "(*Optional*) Change weights on song features"
-    col1, col2, col3 = st.columns(3)
+    "### Become _your_ own DJ"
+    "Let the _algorithm_ know what about the song is important to _you_."
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         danceability = svs.vertical_slider(
                             key="danceability",
@@ -71,7 +87,6 @@ with st.sidebar:
                             max_value=10
                             )
         "key"
-    col4, col5, col6 = st.columns(3)
 
     with col4:
         mode = svs.vertical_slider(
@@ -91,6 +106,8 @@ with st.sidebar:
                             max_value=10
                             )
         "speechniness"
+    col6, col7, col8, col9, col10 = st.columns(5)
+
     with col6:
         acousticness = svs.vertical_slider(
                             key="acousticness",
@@ -101,7 +118,6 @@ with st.sidebar:
                             )
         "acousticness"
 
-    col7, col8, col9 = st.columns(3)
 
     with col7:
         instrumentalness = svs.vertical_slider(
@@ -130,6 +146,7 @@ with st.sidebar:
                             max_value=10
                             )
         "tempo"
+    with col10:
         valence = svs.vertical_slider(
                                 key="valence",
                                 default_value=1,
@@ -139,7 +156,8 @@ with st.sidebar:
                                 )
         "valence"
 
-    ######## API CALL #######
+
+######## API CALL #######
     url = 'https://test-t3ozapnnrq-ew.a.run.app/predict'
     params = {
                 'track_input':  input_title,
@@ -157,19 +175,23 @@ with st.sidebar:
                 'valence' : valence,
                 'tempo' : tempo
         }
-    submit_button =  st.button('Get Recommendations')
+
+submit_button =  st.button('Get Recommendations')
+
 
 
 
 
 
 if submit_button:
-    response = requests.get(url, params=params)
+    with st.spinner('Wait for it...'):
+        response = requests.get(url, params={"n_recommendattions" : 0})
+        response = requests.get(url, params=params)
     if response.status_code == 200:
     #st.write(response.json())
 
         prev_urls = response.json()['prevurl']
-        prev_songs = [f'<audio id="{url}" controls="" src="{url}" class="stAudio" style="width: 50px;"></audio>' for url in prev_urls]
+        prev_songs = [f'<audio id="{url}" controls="" src="{url}" class="stAudio" style="width: 70px;"></audio>' for url in prev_urls]
         track_id = response.json()['track_id']
         similarity = response.json()['similarity']
         track_name = response.json()['track_name']
@@ -224,8 +246,8 @@ if submit_button:
                 ))
 
         fig.update_layout(
-        width=1500,
-        height=1500,
+        width=1000,
+        height=1000,
         polar=dict(
         radialaxis=dict(
         visible=True
@@ -233,13 +255,15 @@ if submit_button:
         ),
         legend=dict(
         orientation="h",
+        )
+        )
 
-        )
-        )
+
+
         st.plotly_chart(fig, use_container_width=True)
 
 
-        st.snow()
+        st.balloons()
         st.write(recommendations.to_html(escape=False, index=False), unsafe_allow_html=True)
         values = recommendations.loc[0,["Level of Similarity"]]
     else:
