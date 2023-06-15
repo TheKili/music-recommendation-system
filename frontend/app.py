@@ -181,7 +181,7 @@ with customise:
 
 
 ######## API CALL #######
-    url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/predict'
+    url = 'https://test-t3ozapnnrq-ew.a.run.app/predict'
     params = {
                 'track_input':  input_title,
                 'artist_input': input_artist,
@@ -202,15 +202,19 @@ with customise:
 submit_button =  st.button('Get Recommendations')
 
 if submit_button:
+    response_0 = requests.get(url, params={"n_recommendations" : 1})
+    prev_url_song = response_0.json()['prevurl']
+    st.audio(prev_url_song[0])
+
+    response_0 = requests.get(url, params=params)
     with st.spinner('Wait for it...'):
-        response = requests.get(url, params={"n_recommendattions" : 0})
         response = requests.get(url, params=params)
-        st.write(response)
+        #st.write(response)
     if response.status_code == 200:
 
-        st.write(response.json())
-        #prev_urls = response.json()['prevurl']
-        #prev_songs = [f'<audio id="{url}" controls="" src="{url}" class="stAudio" style="width: 70px;"></audio>' for url in prev_urls]
+        #st.write(response.json())
+        prev_urls = response.json()['prevurl']
+        prev_songs = [f'<audio id="{url}" controls="" src="{url}" class="stAudio" style="width: 70px;"></audio>' for url in prev_urls]
         track_id = response.json()['track_id']
         similarity = response.json()['similarity']
         track_name = response.json()['track_name']
@@ -246,7 +250,7 @@ if submit_button:
         recommendations.rename(columns={"similarity": "Level of Similarity",
                                         "track_name": "Song Title",
                                         "artist": "Song Artist"}, inplace=True)
-        #recommendations["song_preview"] = prev_songs
+        recommendations["song_preview"] = prev_songs
 
         rc_scaled = recommendations.copy()
         feature_scale = ["danceability","key" ,"mode","speechiness" ,"acousticness","instrumentalness","liveness","valence","tempo"]
@@ -266,6 +270,11 @@ if submit_button:
                     textposition="top center"
                 ))
         fig.update_layout(
+        font=dict(
+        size=23,
+        ),
+        width=950,
+        height=950,
         polar=dict(
             radialaxis=dict(
             visible=True
@@ -283,10 +292,6 @@ if submit_button:
                 "The %{theta} score is %{r}"
             ])
         )
-
-
-
-
 
         st.plotly_chart(fig, use_container_width=True)
         st.write(recommendations.to_html(escape=False, index=False), unsafe_allow_html=True)
