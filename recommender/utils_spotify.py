@@ -90,8 +90,8 @@ def get_track_info(track:str = 'Yesterday', artist:str = 'The Beatles') -> pd.Da
         df = pd.DataFrame({
             'track_id': [track_id],
             'artists': [song_info['artists'][0]['name']],
-            'album_name': [song_info['album']['name']],
             'track_name': [song_info['name']],
+            'album_name': [song_info['album']['name']],
             #'popularity': [song_info['popularity']],
             #'duration_ms': [song_info['duration_ms']],
             #'explicit': [song_info['explicit']],

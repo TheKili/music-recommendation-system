@@ -28,6 +28,11 @@ get_recommendations_gcp:
 	python -c 'from recommender.utils_api import get_recommendations_gcp; get_recommendations_gcp()'
 
 
+get_recommendations_test:
+	python -c 'from recommender.utils_api import get_recommendations_test; get_recommendations_test()'
+
+
+
 ## create_data_matrix
 
 ## install_dependencies
