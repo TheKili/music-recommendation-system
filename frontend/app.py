@@ -20,9 +20,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 st.markdown('<p class="big-font bg-image"><i>Rhythm</i> </br> Radar</p> <p style="text-align:right;"> Your <i> customizable</i> Music Recommendation System</p>', unsafe_allow_html=True)
-
-
-
 search,  customise = st.tabs(["1. Select your Song and Artist", "2. Customise"])
 
 with search:
@@ -42,7 +39,7 @@ with search:
     ""
     # Amount Recommendations asked
     "Next, adjust the **amount of recommendations** you want to get"
-    recom_amount = st.slider("Select recommendation quantity", 1, 100, value=5)
+    recom_amount = st.slider("How many recommendations would you like?", 1, 100, value=5)
     ""
 
 
@@ -50,6 +47,7 @@ with customise:
 
 
     "### How do _you_ want your similarity to be measured"
+    "There are several ways to measure 'similarity'. Here, you can choose between two. Have fun playing around!"
     sim_measure = st_btn_select(('Cosine', 'RBF'))
     st.write("Chosen similarity measure:", sim_measure)
     if sim_measure == "Polynomial":
@@ -158,7 +156,7 @@ with customise:
 
 
 ######## API CALL #######
-    url = 'https://test-t3ozapnnrq-ew.a.run.app/predict'
+    url = 'https://musicrecommender-t3ozapnnrq-ew.a.run.app/predict'
     params = {
                 'track_input':  input_title,
                 'artist_input': input_artist,
@@ -178,17 +176,13 @@ with customise:
 
 submit_button =  st.button('Get Recommendations')
 
-
-
-
-
-
 if submit_button:
     with st.spinner('Wait for it...'):
         response = requests.get(url, params={"n_recommendattions" : 0})
         response = requests.get(url, params=params)
+        st.write(response)
     if response.status_code == 200:
-    #st.write(response.json())
+
 
         prev_urls = response.json()['prevurl']
         prev_songs = [f'<audio id="{url}" controls="" src="{url}" class="stAudio" style="width: 70px;"></audio>' for url in prev_urls]
@@ -225,18 +219,18 @@ if submit_button:
         recommendations.drop(columns=["track_id"], axis=1, inplace=True)
         recommendations.reset_index(drop=True, inplace=True)
         recommendations.rename(columns={"similarity": "Level of Similarity",
-                                    "track_name": "Song Title",
-                                    "artist": "Song Artist"}, inplace=True)
+                                        "track_name": "Song Title",
+                                        "artist": "Song Artist"}, inplace=True)
         recommendations["song_preview"] = prev_songs
 
-
+        rc_scaled = recommendations.copy()
         feature_scale = ["danceability","key" ,"mode","speechiness" ,"acousticness","instrumentalness","liveness","valence","tempo"]
         scaler = MinMaxScaler()
-        recommendations[feature_scale] = pd.DataFrame(scaler.fit_transform(recommendations[feature_scale]), columns = feature_scale)
+        rc_scaled[feature_scale] = pd.DataFrame(scaler.fit_transform(rc_scaled[feature_scale]), columns = feature_scale)
         features = ["Level of Similarity","danceability","speechiness" ,"acousticness","liveness","valence","tempo"]
 
         fig = go.Figure()
-        for row in recommendations.iterrows():
+        for row in rc_scaled.iterrows():
             fig.add_trace(go.Scatterpolar(
                     r= row[1][features],
                     theta=features,
@@ -261,10 +255,6 @@ if submit_button:
 
 
         st.plotly_chart(fig, use_container_width=True)
-
-
-        st.balloons()
         st.write(recommendations.to_html(escape=False, index=False), unsafe_allow_html=True)
-        values = recommendations.loc[0,["Level of Similarity"]]
     else:
         st.write("Bad Connection Gateway")
